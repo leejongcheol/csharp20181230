@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{3FD8515F-9935-434E-BCA8-FBD344060129}</ProjectGuid>
+    <ProjectGuid>{15B1F0B3-CA52-41C7-B927-D551446F70A1}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>PropertyTest2</RootNamespace>
-    <AssemblyName>PropertyTest2</AssemblyName>
+    <RootNamespace>ShapeUser</RootNamespace>
+    <AssemblyName>ShapeUser</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -33,6 +33,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Shapes">
+      <HintPath>..\..\Shapes\Shapes\bin\Debug\Shapes.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
