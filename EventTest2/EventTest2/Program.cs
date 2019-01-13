@@ -36,6 +36,8 @@ namespace ConsoleApplication1{
         static void doAction(object sender, EventArgs e)
         {
             Console.WriteLine("MyEvent 라는 이벤트 발생...");
+            String s = ((EventPublisherArgs)e).myEventData;
+            Console.WriteLine($"이벤트 발생시 넘어온 데이터 : {s}");
         }
     }
 }
