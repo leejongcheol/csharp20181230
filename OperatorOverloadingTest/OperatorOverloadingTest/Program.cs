@@ -3,6 +3,8 @@ namespace OperatorOverloadingTest
 {
     class Adder  {
         public int Value { get; set; };  //자동구현속성
+
+        //연산자 오버로딩( + 연산자에 대해 오버로딩)
         public static Adder operator +(Adder a1, Adder a2)   {
             Adder a3 = new Adder();
             a3.Value = a1.Value + a2.Value;
