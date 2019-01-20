@@ -2,7 +2,7 @@
 
 class Test
 {
-    private EventHandler handler;
+    private EventHandler MyEvent;
     public event EventHandler MyEvent
     {
         add
