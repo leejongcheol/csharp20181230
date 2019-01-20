@@ -9,13 +9,28 @@ using System.Text;
 
 public sealed class SslServer
 {
-    static X509Certificate serverCertificate = null;
+    static X509Certificate serverCertificate = null;   
 
-    public static void RunServer(string certificate, string password)
+    public static void RunServer()
     {
         try
         {
-            serverCertificate = new X509Certificate(certificate, password);
+            //  makecert -sr LocalMachine -ss root -r -n "CN=localhost2" -sky exchange -sk 123456
+            X509Store store = new X509Store(StoreName.Root, StoreLocation.LocalMachine);
+            store.Open(OpenFlags.ReadOnly);
+            var certificates = store.Certificates.Find(X509FindType.FindBySubjectDistinguishedName, "CN=localhost2", false);
+
+            store.Close();
+
+            if (certificates.Count == 0)
+            {
+                Console.WriteLine("Server certificate not found...");
+                return;
+            }
+            else
+            {
+                serverCertificate = certificates[0];
+            }
 
             TcpListener listener = new TcpListener(IPAddress.Any, 8080);
             listener.Start();
@@ -93,13 +108,13 @@ public sealed class SslServer
         {
             // Read the client's test message.
             bytes = sslStream.Read(buffer, 0, buffer.Length);
-
             // Use Decoder class to convert from bytes to UTF8
             // in case a character spans two buffers.
             Decoder decoder = Encoding.UTF8.GetDecoder();
             char[] chars = new char[decoder.GetCharCount(buffer, 0, bytes)];
             decoder.GetChars(buffer, 0, bytes, chars, 0);
             messageData.Append(chars);
+
             // Check for EOF or an empty message.
             if (messageData.ToString().IndexOf("$") != -1)
             {
@@ -115,7 +130,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        SslServer.RunServer(@"C:\GitHub\csharp20181230\SslServer\SslServer\SslServer_TemporaryKey.pfx", "12345");
+        SslServer.RunServer();
 
         Console.WriteLine("Press the any key to continue...");
         Console.ReadLine();
